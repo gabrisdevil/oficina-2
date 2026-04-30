@@ -1,0 +1,8 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="64" fill="#0F172A"/>
+  <path d="M88 202C88 181 105 164 126 164H289L263 191H126C119 191 114 196 114 202C114 208 119 213 126 213H239C264 213 284 233 284 258C284 283 264 303 239 303H88L114 276H239C246 276 251 271 251 265C251 259 246 254 239 254H126C105 254 88 237 88 216V202Z" fill="#F97316"/>
+  <path d="M282 303L374 164H420L328 303H282Z" fill="#FB923C"/>
+  <path d="M205 303L297 164H343L251 303H205Z" fill="#EA580C"/>
+  <text x="64" y="372" fill="white" font-family="Arial, sans-serif" font-size="84" font-weight="700">SAV</text>
+  <text x="64" y="430" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="32" letter-spacing="4">SANTANA AUTO MECÂNICA</text>
+</svg>
