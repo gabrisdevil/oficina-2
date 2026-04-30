@@ -233,7 +233,7 @@
       <div class="card">
         <h2>Agendamento online</h2>
         <p class="muted">Escolha o serviço, data/horário e dados do veículo. Confirmação por WhatsApp.</p>
-        <form class="schedule-form">
+        <form class="schedule-form" id="scheduleForm">
           <label for="nome">Nome</label><input id="nome" required />
           <label for="telefone">Telefone</label><input id="telefone" required />
           <label for="servico">Serviço</label>
@@ -241,7 +241,8 @@
           <label for="veiculo">Veículo (marca/modelo)</label><input id="veiculo" />
           <label for="data">Data e horário</label><input id="data" type="datetime-local" />
           <label for="obs">Observações</label><textarea id="obs" rows="3"></textarea>
-          <p style="margin-top:1rem"><a class="btn" href="https://wa.me/558299063115" target="_blank" rel="noopener">Confirmar pelo WhatsApp</a></p>
+          <p style="margin-top:1rem;display:flex;gap:.6rem;flex-wrap:wrap"><button class="btn" type="submit">Salvar agendamento</button><a class="btn" href="https://wa.me/558299063115" target="_blank" rel="noopener">Confirmar pelo WhatsApp</a></p>
+          <p id="scheduleFeedback" class="muted" role="status" aria-live="polite"></p>
         </form>
       </div>
       <div class="card">
@@ -273,5 +274,45 @@
   <footer>
     <div class="container">© 2026 Santana Auto Mecânica • Maceió - AL</div>
   </footer>
+
+  <script>
+    const form = document.getElementById("scheduleForm");
+    const feedback = document.getElementById("scheduleFeedback");
+
+    form?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      feedback.textContent = "Salvando agendamento...";
+
+      const payload = {
+        nome: document.getElementById("nome")?.value || "",
+        telefone: document.getElementById("telefone")?.value || "",
+        servico: document.getElementById("servico")?.value || "",
+        veiculo: document.getElementById("veiculo")?.value || "",
+        data_hora: document.getElementById("data")?.value || "",
+        obs: document.getElementById("obs")?.value || ""
+      };
+
+      try {
+        const response = await fetch("/api/agendamentos", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          feedback.textContent = data.erro || "Não foi possível salvar o agendamento.";
+          return;
+        }
+
+        feedback.textContent = `Agendamento #${data.id} salvo com sucesso!`;
+        form.reset();
+      } catch (error) {
+        feedback.textContent = "Erro de conexão. Tente novamente.";
+      }
+    });
+  </script>
+
 </body>
 </html>
